@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  monitor:
+    image: pi_monitor
+    build: .
+    restart: unless-stopped
+    privileged: true
+    environment:
+      - BOT_TOKEN=7476618126:AAEbDZGFL6pN5RzSF-4WhECSFJa9MQaG8E0
+      - CHAT_ID=712312398
+    volumes:
+      - /sys/class/thermal:/sys/class/thermal:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.05"      # Limit the container to 5% of one CPU
+          memory: "20M"
